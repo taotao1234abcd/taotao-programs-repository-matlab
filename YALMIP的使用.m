@@ -10,6 +10,7 @@ optimize([A*x <= b, integer(x)],obj,ops)
 
 
 
+
 % 程序运行的结果：
 
 % * Starting YALMIP global branch & bound.
