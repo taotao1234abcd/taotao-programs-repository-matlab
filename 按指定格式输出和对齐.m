@@ -44,8 +44,6 @@ if display == 'y'
         disp('      LINE  FROM BUS    TO BUS      REAL  REACTIVE   ')  
         for i = 1:size(line_ffrom,1)
             fprintf('%10d%10d%10d%10.4f%10.4f\n',line_ffrom(i,1:5));
-        end
-        for i = 1:size(line_fto,1)
             fprintf('%10d%10d%10d%10.4f%10.4f\n',line_fto(i,1:5));
         end
     end
