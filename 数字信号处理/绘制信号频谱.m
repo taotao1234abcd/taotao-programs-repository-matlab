@@ -32,8 +32,8 @@ x_mean = mean(x);
 x = x - x_mean;
 
 
-win = hann(length(x));
-x = x.*win' * 2;
+win_hann = hann(length(x));
+x = x.*win_hann' * 2;
 
 
 n = length(x);
