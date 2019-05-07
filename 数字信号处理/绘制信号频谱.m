@@ -33,7 +33,7 @@ x = x - x_mean;
 
 
 win_hann = hann(length(x));
-x = x.*win_hann' * 2;
+x = x.* win_hann' * 2;
 
 
 n = length(x);
