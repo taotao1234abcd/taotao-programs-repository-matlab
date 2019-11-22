@@ -43,8 +43,8 @@ while flag<8 && r>R
     ayc=-G*M*yp/(xp^2+yp^2)^1.5;
     vxc=vx(n)+axc*h;
     vyc=vy(n)+ayc*h;
-    xc=x(n)+vxp*h;
-    yc=y(n)+vyp*h;
+    xc=x(n)+vxc*h;
+    yc=y(n)+vyc*h;
     
     vx(n+1)=(vxp+vxc)/2;
     vy(n+1)=(vyp+vyc)/2;
