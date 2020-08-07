@@ -39,13 +39,14 @@ if size(t, 1) > size(t, 2)
     t = t';
 end
 subplot(211);
-plot(t, x, 'r:');
+plot(t, x + mean_x, 'r:');
+t_start = min(t);
 legend('原波形');
 grid on;
 
 mn = 100; % prony模型的阶数
 sf = 1/mean(diff(t)); % 采样频率
-x_bias_list = -(max(x) - min(x))/2:(max(x) - min(x))/20:(max(x) - min(x))/2; % 直流偏移调整量的搜索范围
+% x_bias_list = -(max(x) - min(x))/2:(max(x) - min(x))/20:(max(x) - min(x))/2; % 直流偏移调整量的搜索范围
 x_bias_list = [0];
 error_list = [];
 for x_bias = x_bias_list  
@@ -58,7 +59,7 @@ x_bias = x_bias_list(error_min_index);
 [out, out_h, error] = get_prony(x, sf, mn, x_bias);
 
 subplot(212);
-plot(out_h(1, :), out_h(2, :), 'r:', out_h(1, :), out_h(3, :));
+plot(out_h(1, :) + t_start, out_h(2, :) + mean_x, 'r:', out_h(1, :) + t_start, out_h(3, :) + mean_x);
 legend('原波形', '拟合得到的波形');
 grid on;
 
@@ -66,29 +67,29 @@ grid on;
 fprintf('计算结果见变量 out，各列从左到右依次为：频率(Hz) 幅值 阻尼系数 初相角(rad)\n');
 
 
-hang = size(out, 1);
-% invalid_hang = 2;
-% index_list = [1:(invalid_hang - 1), (invalid_hang + 1):hang];
-index_list = 1:22;
-t = out_h(1, :);
-y = 0 * t;
-dt = 1/sf;
-n = 0:(length(t)-1);
-for i = index_list
-%     y = y + out(i, 2)*exp(out(i, 3)*t).*cos(2*pi*out(i, 1)*t + out(i, 4));
-    y = y + real(0.5*out(i, 2)*exp(1j*out(i, 4))*exp((out(i, 3) + 1j*2*pi*out(i, 1))*dt).^n) + real(0.5*out(i, 2)*exp(-1j*out(i, 4))*exp((out(i, 3) - 1j*2*pi*out(i, 1))*dt).^n);
-end
-y = y + mean(out_h(2, :)) - mean(y);
-
-figure;
-subplot(211);
-plot(out_h(1, :), out_h(2, :), 'r:');
-legend('原波形');
-grid on;
-subplot(212);
-plot(out_h(1, :), out_h(2, :), 'r:', t, y);
-legend('原波形', '根据所选频率拟合得到的波形');
-grid on;
+% hang = size(out, 1);
+% % invalid_hang = 2;
+% % index_list = [1:(invalid_hang - 1), (invalid_hang + 1):hang];
+% index_list = 1:22;
+% t = out_h(1, :);
+% y = 0 * t;
+% dt = 1/sf;
+% n = 0:(length(t)-1);
+% for i = index_list
+% %     y = y + out(i, 2)*exp(out(i, 3)*t).*cos(2*pi*out(i, 1)*t + out(i, 4));
+%     y = y + real(0.5*out(i, 2)*exp(1j*out(i, 4))*exp((out(i, 3) + 1j*2*pi*out(i, 1))*dt).^n) + real(0.5*out(i, 2)*exp(-1j*out(i, 4))*exp((out(i, 3) - 1j*2*pi*out(i, 1))*dt).^n);
+% end
+% y = y + mean(out_h(2, :)) - mean(y);
+% 
+% figure;
+% subplot(211);
+% plot(out_h(1, :), out_h(2, :), 'r:');
+% legend('原波形');
+% grid on;
+% subplot(212);
+% plot(out_h(1, :), out_h(2, :), 'r:', t, y);
+% legend('原波形', '根据所选频率拟合得到的波形');
+% grid on;
 
 
 
@@ -142,8 +143,5 @@ out(find(out(:, 1) == 0), 2) = out(find(out(:, 1) == 0), 2) / 2;
 out = out(find(out(:, 1) >= 0), :);
 out = -sortrows(-out, 2);
 end
-
-
-
 
 
