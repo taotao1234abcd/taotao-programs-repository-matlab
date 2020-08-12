@@ -2,4 +2,4 @@
 
 S.T. ZHANG
 
-A collection of programed or summarized MATLAB programs
+A collection of programed or summarized MATLAB programs.
