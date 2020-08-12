@@ -1,4 +1,4 @@
-# MATALB Programs Repository
+# MATLAB Programs Repository
 
 S.T. ZHANG
 
