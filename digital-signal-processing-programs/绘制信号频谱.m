@@ -38,9 +38,9 @@ x = x.* win_hann' * 2;
 
 n = length(x);
 if size(x, 2) > size(x, 1)
-    x = [x, zeros(1, 3*n)];
+    x = [x, zeros(1, 9*n)];
 else
-    x = [x; zeros(3*n,1)];
+    x = [x; zeros(9*n,1)];
 end
 N=length(x);
 k=0:N-1;
